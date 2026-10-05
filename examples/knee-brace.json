@@ -1,0 +1,40 @@
+{
+  "title": "Knee Brace Coverage",
+  "pdf_url": "https://example.com/policies/knee-brace.pdf",
+  "source_page_url": "https://example.com/policies/knee-brace",
+  "extracted_text": "Example Health Plan\nKnee Brace Coverage Policy KB001\n\nOverview\nThis made up policy describes when a knee brace is covered.\n\nInitial Criteria\n1. The member must meet ALL of the following:\n   a. A clinician has documented knee instability.\n   b. The member has tried physical therapy for 6 weeks.\n2. The member must meet ONE of the following:\n   a. The brace is custom fitted.\n   b. A prefabricated brace has failed.\n\nContinuation Criteria\n1. The member shows documented improvement.\n",
+  "tree": {
+    "title": "Knee Brace Coverage",
+    "payer": "Example Health",
+    "rules": {
+      "rule_id": "1",
+      "rule_text": "The member must meet ALL of the following:",
+      "operator": "AND",
+      "rules": [
+        {
+          "rule_id": "1.1",
+          "rule_text": "A clinician has documented knee instability."
+        },
+        {
+          "rule_id": "1.2",
+          "rule_text": "The member has tried physical therapy for 6 weeks."
+        },
+        {
+          "rule_id": "1.3",
+          "rule_text": "ONE of the following:",
+          "operator": "OR",
+          "rules": [
+            {
+              "rule_id": "1.3.1",
+              "rule_text": "The brace is custom fitted."
+            },
+            {
+              "rule_id": "1.3.2",
+              "rule_text": "A prefabricated brace has failed."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

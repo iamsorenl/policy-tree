@@ -32,6 +32,19 @@ cp .env.example .env
 
 Then edit `.env`.
 
+## Try it without a key
+
+The `examples/` folder has two made up policies, a knee brace policy and a sleep study policy, already turned into trees. Load them and open the UI.
+
+```bash
+python -m app.demo
+uvicorn app.main:app --reload
+```
+
+Then open `localhost:8000`. No API key or network is needed for this.
+
+To run the full pipeline you need a real listing page. Insurers post their medical or clinical policies publicly, so search for an insurer's name plus "medical policies" or "clinical policy bulletins" and use the page that lists them. Sites are laid out differently, so you may need `DETAIL_PATH_PREFIX` or `PDF_HOST_ALLOWLIST` below. Start with `--count 3` to keep model costs low while you check the output.
+
 ## Configuration
 
 These are read from the environment or from `.env`.

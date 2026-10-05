@@ -1,0 +1,44 @@
+{
+  "title": "Sleep Study Coverage",
+  "pdf_url": "https://example.com/policies/sleep-study.pdf",
+  "source_page_url": "https://example.com/policies/sleep-study",
+  "extracted_text": "Example Health Plan\nSleep Study Coverage Policy SS002\n\nInitial Criteria\n1. The member must meet ALL of the following:\n   a. The member is 18 or older.\n   b. ONE of the following symptoms is documented:\n      i. Loud snoring reported by a bed partner.\n      ii. Witnessed pauses in breathing during sleep.\n      iii. Daytime sleepiness score of 10 or higher.\n   c. No in-lab sleep study in the last 12 months.\n",
+  "tree": {
+    "title": "Sleep Study Coverage",
+    "payer": "Example Health",
+    "rules": {
+      "rule_id": "1",
+      "rule_text": "The member must meet ALL of the following:",
+      "operator": "AND",
+      "rules": [
+        {
+          "rule_id": "1.1",
+          "rule_text": "The member is 18 or older."
+        },
+        {
+          "rule_id": "1.2",
+          "rule_text": "ONE of the following symptoms is documented:",
+          "operator": "OR",
+          "rules": [
+            {
+              "rule_id": "1.2.1",
+              "rule_text": "Loud snoring reported by a bed partner."
+            },
+            {
+              "rule_id": "1.2.2",
+              "rule_text": "Witnessed pauses in breathing during sleep."
+            },
+            {
+              "rule_id": "1.2.3",
+              "rule_text": "Daytime sleepiness score of 10 or higher."
+            }
+          ]
+        },
+        {
+          "rule_id": "1.3",
+          "rule_text": "No in-lab sleep study in the last 12 months."
+        }
+      ]
+    }
+  }
+}
