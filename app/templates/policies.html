@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Policies{% endblock %}
+{% block content %}
+<section class="page-header">
+  <h1>Medical Guidelines</h1>
+  <p class="muted">Browse discovered policies and inspect their structured criteria trees.</p>
+</section>
+
+<section class="stats">
+  <div class="stat">
+    <div class="stat-value">{{ stats.total }}</div>
+    <div class="stat-label">Total policies</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{ stats.downloaded }}</div>
+    <div class="stat-label">Downloaded</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{ stats.structured }}</div>
+    <div class="stat-label">
+      Structured
+      {% if stats.structured_warn %}
+        <span class="muted">({{ stats.structured_warn }} with warnings)</span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if policies %}
+<table class="policies">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">PDF</th>
+      <th scope="col" class="centered">Structured</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in policies %}
+    <tr>
+      <td>
+        <a class="policy-link" href="/policies/{{ p.id }}">{{ p.title }}</a>
+      </td>
+      <td>
+        {% if p.pdf_url %}
+          <a href="{{ p.pdf_url }}" target="_blank" rel="noopener noreferrer">PDF &#8599;</a>
+        {% else %}
+          <span class="muted">—</span>
+        {% endif %}
+      </td>
+      <td class="centered">
+        {% if p.has_structure and not p.validation_error %}
+          <span class="status status-ok" title="Structured tree available">&#10003;</span>
+        {% elif p.has_structure and p.validation_error %}
+          <span class="status status-warn" title="{{ p.validation_error }}">&#9888;</span>
+        {% else %}
+          <span class="status status-none" title="Not yet structured">—</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="empty">
+  <p>No policies discovered yet. Run the discovery pipeline to populate the database.</p>
+</div>
+{% endif %}
+{% endblock %}

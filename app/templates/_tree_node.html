@@ -1,0 +1,30 @@
+{# Recursive macro for rendering a single criteria tree node.
+   Usage: {% from "_tree_node.html" import render_node %}
+          {{ render_node(root_node, depth=0, default_open_depth=1) }}
+   default_open_depth=1 -> root + immediate children open by default. #}
+{% macro render_node(node, depth=0, default_open_depth=1) -%}
+  {%- set has_children = node.rules and node.rules|length > 0 -%}
+  {%- set is_open = depth <= default_open_depth -%}
+  {%- if has_children -%}
+    <details class="tree-node operator-node" {% if is_open %}open{% endif %}>
+      <summary>
+        {%- if node.rule_id %}<span class="rule-id">{{ node.rule_id }}</span>{% endif -%}
+        {%- if node.operator -%}
+          {%- set op = node.operator|upper -%}
+          <span class="pill pill-{{ op|lower }}">{{ op }}</span>
+        {%- endif -%}
+        <span class="rule-text">{{ node.rule_text }}</span>
+      </summary>
+      <div class="children">
+        {%- for child in node.rules -%}
+          {{ render_node(child, depth + 1, default_open_depth) }}
+        {%- endfor -%}
+      </div>
+    </details>
+  {%- else -%}
+    <div class="tree-node leaf-node">
+      {%- if node.rule_id %}<span class="rule-id">{{ node.rule_id }}</span>{% endif -%}
+      <span class="rule-text">{{ node.rule_text }}</span>
+    </div>
+  {%- endif -%}
+{%- endmacro %}

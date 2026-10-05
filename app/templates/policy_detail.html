@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "_tree_node.html" import render_node %}
+{% block title %}{{ policy.title }}{% endblock %}
+{% block content %}
+<nav class="crumbs"><a href="/">&larr; All policies</a></nav>
+
+<section class="page-header">
+  <h1>{{ policy.title }}</h1>
+  <ul class="link-row">
+    {% if policy.source_page_url %}
+      <li><a href="{{ policy.source_page_url }}" target="_blank" rel="noopener noreferrer">Source page &#8599;</a></li>
+    {% endif %}
+    {% if policy.pdf_url %}
+      <li><a href="{{ policy.pdf_url }}" target="_blank" rel="noopener noreferrer">PDF &#8599;</a></li>
+    {% endif %}
+  </ul>
+</section>
+
+{% if structured and structured.validation_error %}
+  <div class="alert alert-warn">
+    <strong>Validation warning:</strong>
+    <span>{{ structured.validation_error }}</span>
+  </div>
+{% endif %}
+
+{% if structured and structured.structured_json %}
+  {% set tree = structured.structured_json %}
+  <section class="tree-meta">
+    <div class="kv"><span class="muted">Tree title:</span> {{ tree.title or policy.title }}</div>
+    <div class="kv"><span class="muted">Payer:</span> {{ tree.payer or "unknown" }}</div>
+  </section>
+
+  {% if tree.rules %}
+    <div class="tree-toolbar muted" role="navigation" aria-label="Tree expand controls"
+         style="font-size:12px; margin:8px 0 6px 0; display:flex; gap:10px;">
+      <a href="?expand=0" style="color:var(--muted); text-decoration:none;">[ Collapse ]</a>
+      <a href="?expand=1" style="color:var(--muted); text-decoration:none;">[ Default ]</a>
+      <a href="?expand=all" style="color:var(--muted); text-decoration:none;">[ Expand all ]</a>
+    </div>
+  {% endif %}
+
+  <section class="tree" aria-label="Criteria tree">
+    {% if tree.rules %}
+      {{ render_node(tree.rules, 0, expand_depth) }}
+    {% else %}
+      <p class="muted">Structured JSON present but contains no rules.</p>
+    {% endif %}
+  </section>
+{% else %}
+  <div class="empty">
+    <p><strong>Not yet structured for this policy.</strong></p>
+    <p class="muted">Once the structuring pipeline runs against this PDF, the criteria tree will appear here.</p>
+  </div>
+{% endif %}
+{% endblock %}

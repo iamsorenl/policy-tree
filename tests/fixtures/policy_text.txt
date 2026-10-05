@@ -1,0 +1,16 @@
+Example Health Plan
+Knee Brace Coverage Policy KB001
+
+Overview
+This made up policy describes when a knee brace is covered.
+
+Initial Criteria
+1. The member must meet ALL of the following:
+   a. A clinician has documented knee instability.
+   b. The member has tried physical therapy for 6 weeks.
+2. The member must meet ONE of the following:
+   a. The brace is custom fitted.
+   b. A prefabricated brace has failed.
+
+Continuation Criteria
+1. The member shows documented improvement.
