@@ -3,7 +3,7 @@
 Anchors the contract for the Pydantic recursive schema:
   - a sample tree fixture validates clean
   - leaves are minimal (rule_id + rule_text only)
-  - non-leaves require BOTH operator AND non-empty rules (Worker B's strict rule)
+  - non-leaves require BOTH operator AND non-empty rules
   - title is required at top level
   - payer defaults to "unknown" and accepts any name
 """
@@ -58,7 +58,7 @@ def test_non_leaf_with_operator_and_rules_is_valid():
 
 
 def test_non_leaf_with_operator_but_empty_rules_raises():
-    """Worker B's strict validator: operator without rules is invalid."""
+    """An operator without rules is invalid."""
     with pytest.raises(ValidationError) as excinfo:
         Rule.model_validate({
             "rule_id": "1",

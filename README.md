@@ -14,7 +14,7 @@ Insurers publish their medical policies as PDFs. When a doctor asks for prior au
 
 1. Discovery fetches the listing page, follows each policy link, and saves every PDF link it finds.
 2. Download fetches each PDF with retries and a pause between requests. It skips files it already has.
-3. Structure pulls the text out of each PDF with pdfplumber, and falls back to pypdf when that comes back empty. It cuts out the initial criteria section, sends it to the model, and validates the answer. A bad answer gets one retry with the error included. Failures are saved with their error message so they show up in the UI.
+3. Structure pulls the text out of each PDF with pdfplumber, and falls back to pypdf when that comes back empty. It cuts out the initial criteria section, since that is what a new prior authorization request is checked against (continuation criteria for renewals are a separate section and are skipped for now), sends it to the model, and validates the answer. A bad answer gets one retry with the error included. Failures are saved with their error message so they show up in the UI.
 4. The UI lists every policy and shows its tree.
 
 Every step can be run again safely. Policies are keyed by PDF URL, so reruns do not create duplicates.
